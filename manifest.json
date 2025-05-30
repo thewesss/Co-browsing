@@ -1,0 +1,22 @@
+
+
+{
+    "manifest_version": 3,
+    "name": "Webfuse Co-Browse Guide",
+    "version": "1.0",
+    "description": "Displays a helpful guide about co-Browse and how to invite others when a Webfuse space is loaded.",
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ],
+    "host_permissions": ["<all_urls>"],
+    "env": [
+        {
+            "key": "SPACE_LINK",
+            "value": "", 
+            "description": "The unique shareable link for this Webfuse space."
+        }
+    ]
+}
