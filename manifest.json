@@ -1,11 +1,10 @@
-
-
 {
     "manifest_version": 3,
     "name": "Webfuse Co-Browse Guide",
     "version": "1.0",
     "description": "Displays a helpful guide about co-Browse and how to invite others when a Webfuse space is loaded.",
     "permissions": [
+        "storage",
         "clipboardWrite"
     ],
     "content_scripts": [
