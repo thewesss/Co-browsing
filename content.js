@@ -1,31 +1,18 @@
 (async function () {
+  const tourShownSessionKey = '__wfCoBrowseTour_Bing_Shown_SessionV3';
+
   // 1. Domain Check: Only execute this tour logic if the current page is on bing.com
   if (!(window.location.hostname === 'www.bing.com' || window.location.hostname === 'bing.com')) {
-    // console.log("Webfuse Onboarding Tour: Not on bing.com, skipping tour.");
     return; // Exit if not on bing.com
   }
 
-  // 2. Persistence Check: Use localStorage to see if the tour has already been shown on bing.com in this browser.
-  // The key is made specific to this tour, version, and domain.
-  const tourShownStorageKey = '__wfCoBrowseTour_Bing_Shown_V3';
-
-//   if (localStorage.getItem(tourShownStorageKey) === 'true') {
-//     // console.log("Webfuse Onboarding Tour: Already shown on bing.com in this browser session (localStorage), skipping.");
-//     return; // If already shown (according to localStorage), exit.
-//   }
-
-  // 3. In-Memory Check (for the current tab's lifecycle):
-  // This prevents the script from re-initializing the tour if it were somehow called multiple times
-  // within the same page load without localStorage having been set yet (e.g., an error occurred before localStorage.setItem).
-  // This is a secondary safeguard.
-  if (window.__wfCoBrowseTourV3Shown_Bing_TabFlag) {
-    // console.log("Webfuse Onboarding Tour: Already initialized in this tab session (window flag), skipping.");
-    return;
+  // 2. Session Persistence Check: Use sessionStorage to see if the tour has already been shown during this browser session.
+  if (sessionStorage.getItem(tourShownSessionKey) === 'true') {
+    return; // Already shown in this session
   }
-  window.__wfCoBrowseTourV3Shown_Bing_TabFlag = true;
 
-  // This will prevent it from showing in new tabs or on page reloads.
-  localStorage.setItem(tourShownStorageKey, 'true');
+  // 3. Mark as shown for this session (across all bing.com tabs in this browser session)
+  sessionStorage.setItem(tourShownSessionKey, 'true');
   console.log("Webfuse Onboarding Tour: Marking as shown for this browser session.");
 
   const svgLogoString = `
