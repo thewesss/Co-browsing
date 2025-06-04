@@ -3,15 +3,14 @@
 
   // 1. Domain Check: Only execute this tour logic if the current page is on bing.com
   if (!(window.location.hostname === 'www.bing.com' || window.location.hostname === 'bing.com')) {
-    return; // Exit if not on bing.com
+    return; 
   }
 
   // 2. Session Persistence Check: Use sessionStorage to see if the tour has already been shown during this browser session.
   if (sessionStorage.getItem(tourShownSessionKey) === 'true') {
-    return; // Already shown in this session
+    return;
   }
 
-  // 3. Mark as shown for this session (across all bing.com tabs in this browser session)
   sessionStorage.setItem(tourShownSessionKey, 'true');
   console.log("Webfuse Onboarding Tour: Marking as shown for this browser session.");
 
@@ -33,11 +32,11 @@
     </linearGradient>
     </defs>
     </svg>`;
-  const INVITE_URL_BASE = "https://webfuse.com/"; // User's current value
+  const INVITE_URL_BASE = "https://webfuse.com/"; 
 
   let shareableLink = "";
   let determinationMethod = "unknown";
-  let currentlyHighlightedElement = null; // To keep track of the highlighted element
+  let currentlyHighlightedElement = null; 
 
   // --- Helper function to get session identifier (full link or session ID) ---
   async function getSessionIdentifierFromAPI() {
@@ -223,7 +222,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" role="presentation" data-t="svg" data-t-ui="icon-power" viewBox="0 0 24 24" height="29px" width="29px" class="" style="display: inline-block;"><g data-t="icon-g-wrapper" transform="scale(1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.75 2C12.75 1.58579 12.4142 1.25 12 1.25C11.5858 1.25 11.25 1.58579 11.25 2V12C11.25 12.4142 11.5858 12.75 12 12.75C12.4142 12.75 12.75 12.4142 12.75 12V2ZM6.81445 5.58303C7.13645 5.32247 7.18625 4.85021 6.92569 4.52822C6.66513 4.20622 6.19288 4.15641 5.87088 4.41697C5.46305 4.74699 5.08242 5.10922 4.73283 5.49981C3.1894 7.22428 2.25 9.50333 2.25 12C2.25 17.3848 6.61522 21.75 12 21.75C17.3848 21.75 21.75 17.3848 21.75 12C21.75 9.50333 20.8106 7.22428 19.2672 5.49981C18.9176 5.10922 18.5369 4.74699 18.1291 4.41697C17.8071 4.15641 17.3349 4.20622 17.0743 4.52822C16.8137 4.85021 16.8636 5.32247 17.1855 5.58303C17.5309 5.86251 17.8533 6.16934 18.1495 6.50019C19.4563 7.96026 20.25 9.88655 20.25 12C20.25 16.5563 16.5563 20.25 12 20.25C7.44365 20.25 3.75 16.5563 3.75 12C3.75 9.88655 4.54373 7.96026 5.85053 6.50019C6.14665 6.16933 6.46906 5.86251 6.81445 5.58303Z" fill="var(--color-theme-icon)"></path></g></svg>
           </div>
           When you're done, click this (power icon) to end the co-browse session.`,
-        targetSelector: "#webfuse-end-session-btn", // Placeholder - REPLACE THIS
+        targetSelector: "#webfuse-end-session-btn",
         tooltipPosition: "bottom-left",
         buttons: [{ text: "Finish Tour", id: "finish", type: "primary" }]
     }
@@ -247,7 +246,7 @@
   }
 
   function renderCurrentStep() {
-    clearHighlight(); // Clear previous highlight
+    clearHighlight(); 
     const step = tourSteps[currentStepIndex];
     modalElement.innerHTML = `
         <h3 class="cookieHeading" id="wf-tour-title">${step.title}</h3>
@@ -277,19 +276,16 @@
         targetElement.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
 
         const targetRect = targetElement.getBoundingClientRect();
-        modalElement.classList.add('tooltip-mode'); // Add class for tooltip specific styles
+        modalElement.classList.add('tooltip-mode'); 
 
-        // Basic positioning logic (can be expanded)
         let modalTop = targetRect.bottom + 15 + window.scrollY;
         let modalLeft = targetRect.left + window.scrollX;
 
-        // Adjust if modal goes off-screen (very basic adjustment)
         if (modalLeft + modalElement.offsetWidth > window.innerWidth - 20) {
             modalLeft = window.innerWidth - modalElement.offsetWidth - 20;
         }
         if (modalLeft < 10) modalLeft = 10;
         
-        // If modal would go off bottom, try to position above
         if (modalTop + modalElement.offsetHeight > window.innerHeight - 20 + window.scrollY) {
             modalTop = targetRect.top - modalElement.offsetHeight - 15 + window.scrollY;
         }
@@ -298,12 +294,11 @@
 
         modalElement.style.top = `${modalTop}px`;
         modalElement.style.left = `${modalLeft}px`;
-        modalElement.style.position = 'absolute'; // Change from fixed
-        modalElement.style.transform = 'translate(0, 0)'; // Reset transform from centered mode
+        modalElement.style.position = 'absolute';
+        modalElement.style.transform = 'translate(0, 0)'; 
 
       } else {
         console.warn(`Webfuse Onboarding Tour: Target element for selector "${step.targetSelector}" not found.`);
-        // Fallback to centered if target not found
         modalElement.classList.remove('tooltip-mode');
         modalElement.style.position = 'fixed';
         modalElement.style.top = '50%';
@@ -311,7 +306,6 @@
         modalElement.style.transform = 'translate(-50%, -50%)';
       }
     } else {
-      // Default centered position for non-tooltip steps
       modalElement.classList.remove('tooltip-mode');
       modalElement.style.position = 'fixed';
       modalElement.style.top = '50%';
@@ -336,15 +330,15 @@
             buttonElement.addEventListener('click', () => {
                 switch (buttonConfig.id) {
                     case 'next':
-                    case 'next-features': // "Tour Features" button
+                    case 'next-features': 
                         if (currentStepIndex < tourSteps.length - 1) {
                             currentStepIndex++;
                             renderCurrentStep();
-                        } else { // Should not happen if 'next' is not on last step
+                        } else { 
                             closeTour();
                         }
                         break;
-                    case 'skip-intro': // Skip to feature tour or end if no features
+                    case 'skip-intro': 
                         const firstFeatureStepIndex = tourSteps.findIndex(s => s.targetSelector);
                         if (firstFeatureStepIndex !== -1) {
                             currentStepIndex = firstFeatureStepIndex;
@@ -353,8 +347,8 @@
                             closeTour();
                         }
                         break;
-                    case 'skip-all': // Skip everything
-                    case 'finish': // "End Tour" or "Start Browse"
+                    case 'skip-all': 
+                    case 'finish': 
                         closeTour();
                         break;
                     case 'copy':
