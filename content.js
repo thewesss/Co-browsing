@@ -24,21 +24,10 @@
   }
   window.__wfCoBrowseTourV3Shown_Bing_TabFlag = true;
 
-  // --- If all checks pass, it means:
-  // --- 1. We are on bing.com.
-  // --- 2. The tour hasn't been shown yet in this browser (per localStorage).
-  // --- 3. The tour hasn't been initialized in this specific tab load yet.
-  // --- So, proceed to set the localStorage flag and initialize the tour.
-
-  // Mark the tour as shown in this browser.
   // This will prevent it from showing in new tabs or on page reloads.
   localStorage.setItem(tourShownStorageKey, 'true');
   console.log("Webfuse Onboarding Tour: Marking as shown for this browser session.");
 
-  // !!! IMPORTANT: USER ACTION REQUIRED for INVITE_URL_BASE !!!
-  // You've set this to "https://webfuse.com/".
-  // If getSessionIdentifierFromAPI returns just a session ID, the final link will be "https://webfuse.com/SESSION_ID".
-  // Ensure this is the correct pattern. It might need to be "https://webfuse.com/join/" or "https://webfuse.com/s/" etc.
   const svgLogoString = `
     <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1000 250" fill="none" preserveAspectRatio="xMidYMid meet" aria-hidden="true" role="img">
     <path d="M870 34.9703L870 215.029C870 239.229 893.947 256.363 916.33 247.736C965.249 228.881 1000 181.04 1000 124.998C1000 68.9582 965.249 21.117 916.33 2.26154C912.323 0.717594 908.262 1.30468e-06 904.302 6.12299e-07C886.139 -0.00351153 870 15.1026 870 34.9703Z" fill="url(#paint0_linear_16929_41007_tour)"></path>
@@ -135,8 +124,7 @@
   }
   console.log(`Webfuse Onboarding Tour: Final shareable link determined via '${determinationMethod}': ${shareableLink}`);
 
-  // --- Tour Data & State ---
-  // !!! USER ACTION: Replace placeholder selectors with actual CSS selectors from Webfuse UI !!!
+  
   const tourSteps = [
     {
         id: "welcome", title: "Welcome to Your Co-Browse Session!",
@@ -192,7 +180,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" role="presentation" data-t="svg" data-t-ui="icon-users" viewBox="0 0 16 16" height="21px" width="21px" class="" style="display: inline-block;"><g data-t="icon-g-wrapper" transform="scale(0.6666666666666666)"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.75 7C4.75 5.20507 6.20507 3.75 8 3.75C9.79493 3.75 11.25 5.20507 11.25 7C11.25 8.79493 9.79493 10.25 8 10.25C6.20507 10.25 4.75 8.79493 4.75 7ZM8 2.25C5.37665 2.25 3.25 4.37665 3.25 7C3.25 9.62335 5.37665 11.75 8 11.75C10.6234 11.75 12.75 9.62335 12.75 7C12.75 4.37665 10.6234 2.25 8 2.25ZM14 2.25C13.5858 2.25 13.25 2.58579 13.25 3C13.25 3.41421 13.5858 3.75 14 3.75C15.7949 3.75 17.25 5.20507 17.25 7C17.25 8.79493 15.7949 10.25 14 10.25C13.5858 10.25 13.25 10.5858 13.25 11C13.25 11.4142 13.5858 11.75 14 11.75C16.6234 11.75 18.75 9.62335 18.75 7C18.75 4.37665 16.6234 2.25 14 2.25ZM6 15.75C4.20507 15.75 2.75 17.2051 2.75 19C2.75 19.6904 3.30964 20.25 4 20.25H12C12.6904 20.25 13.25 19.6904 13.25 19C13.25 17.2051 11.7949 15.75 10 15.75H6ZM1.25 19C1.25 16.3766 3.37665 14.25 6 14.25H10C12.6234 14.25 14.75 16.3766 14.75 19C14.75 20.5188 13.5188 21.75 12 21.75H4C2.48122 21.75 1.25 20.5188 1.25 19ZM16 14.25C15.5858 14.25 15.25 14.5858 15.25 15C15.25 15.4142 15.5858 15.75 16 15.75H18C19.7949 15.75 21.25 17.2051 21.25 19C21.25 19.6904 20.6904 20.25 20 20.25H16C15.5858 20.25 15.25 20.5858 15.25 21C15.25 21.4142 15.5858 21.75 16 21.75H20C21.5188 21.75 22.75 20.5188 22.75 19C22.75 16.3766 20.6234 14.25 18 14.25H16Z" fill="var(--color-text-primary)"></path></g></svg>
           </div>
           This icon shows how many people are in the session.`,
-        targetSelector: "#webfuse-participants-btn", // Placeholder - REPLACE THIS
+        targetSelector: "#webfuse-participants-btn", 
         tooltipPosition: "bottom-right",
         buttons: [{ text: "Next", id: "next", type: "primary" }, { text: "End Tour", id: "finish", type: "secondary" }]
     },
@@ -203,7 +191,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" role="presentation" data-t="svg" data-t-ui="icon-plus" viewBox="0 0 24 24" height="29px" width="29px" class="" style="display: inline-block;"><g data-t="icon-g-wrapper" transform="scale(1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 5.25C12.4142 5.25 12.75 5.58579 12.75 6V11.25H18C18.4142 11.25 18.75 11.5858 18.75 12C18.75 12.4142 18.4142 12.75 18 12.75H12.75V18C12.75 18.4142 12.4142 18.75 12 18.75C11.5858 18.75 11.25 18.4142 11.25 18V12.75H6C5.58579 12.75 5.25 12.4142 5.25 12C5.25 11.5858 5.58579 11.25 6 11.25H11.25V6C11.25 5.58579 11.5858 5.25 12 5.25Z" fill="var(--color-theme-icon)"></path></g></svg>
           </div>
           Create new tabs within a session to navigate to a new web address.`,
-        targetSelector: "#webfuse-url-bar", // Placeholder - REPLACE THIS
+        targetSelector: "#webfuse-url-bar", 
         tooltipPosition: "bottom",
         buttons: [{ text: "Next", id: "next", type: "primary" }, { text: "End Tour", id: "finish", type: "secondary" }]
     },
@@ -215,7 +203,7 @@
           </div>
           Click this (cursor icon) to request or give control for interaction on the right.
         `,
-        targetSelector: ".webfuse-control-icon", // Placeholder - REPLACE THIS (example class)
+        targetSelector: ".webfuse-control-icon", 
         tooltipPosition: "bottom-left",
         buttons: [{ text: "Next", id: "next", type: "primary" }, { text: "End Tour", id: "finish", type: "secondary" }]
     },
@@ -226,7 +214,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" role="presentation" data-t="svg" data-t-ui="icon-edit3" viewBox="0 0 24 24" height="29px" width="29px" class="" style="display: inline-block;"><g data-t="icon-g-wrapper" transform="scale(1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.1593 4.90346C17.6361 4.47008 18.3642 4.47009 18.8409 4.90349C18.8596 4.92048 18.884 4.94459 18.9698 5.03033C19.0555 5.11606 19.0796 5.14047 19.0966 5.15917C19.53 5.63593 19.53 6.36399 19.0966 6.84075C19.0796 6.85945 19.0555 6.88385 18.9697 6.96959L18.1627 7.77665C17.0865 7.80091 16.1991 6.91356 16.2233 5.83742L17.0305 5.0303C17.1162 4.94456 17.1406 4.92046 17.1593 4.90346ZM14.9524 7.10832L7.09722 14.9634C6.29045 15.7702 5.98987 16.0796 5.78372 16.4437C5.57758 16.8078 5.46691 17.2247 5.19019 18.3316L5.03079 18.9692L5.6684 18.8098C6.77527 18.5331 7.1922 18.4224 7.55629 18.2163C7.92038 18.0101 8.22978 17.7095 9.03654 16.9028L16.8917 9.04759C16.0064 8.70195 15.2981 7.99364 14.9524 7.10832ZM19.8499 3.79356C18.801 2.84007 17.1993 2.84005 16.1504 3.79351C16.1016 3.83787 16.0497 3.88972 15.9824 3.95705L15.9698 3.96963L6.03657 13.9028L5.96302 13.9763C5.25466 14.6844 4.79718 15.1417 4.47843 15.7047C4.15967 16.2676 4.00291 16.8952 3.76019 17.8669L3.73498 17.9678L3.27241 19.8181C3.20851 20.0737 3.2834 20.344 3.46969 20.5303C3.65597 20.7166 3.92634 20.7915 4.18192 20.7276L6.03221 20.265L6.1331 20.2398C7.1048 19.9971 7.73236 19.8403 8.29534 19.5216C8.85831 19.2028 9.31561 18.7453 10.0237 18.037L10.0972 17.9635L20.0304 8.03025L20.043 8.01763C20.1103 7.95033 20.1622 7.8985 20.2065 7.84971C21.16 6.80085 21.16 5.19912 20.2066 4.15023C20.1622 4.10145 20.1104 4.04963 20.0431 3.98235L20.043 3.98228L20.0305 3.96969L20.0179 3.95713L20.0179 3.95709C19.9506 3.88977 19.8987 3.83792 19.8499 3.79356Z" fill="var(--color-theme-icon)"></path></g></svg>
           </div>
           This pencil icon activates drawing mode for on-page annotations.`,
-        targetSelector: "button[aria-label='Draw']", // Placeholder - REPLACE THIS (example attribute selector)
+        targetSelector: "button[aria-label='Draw']", 
         tooltipPosition: "bottom-left",
         buttons: [{ text: "Next", id: "next", type: "primary" }, { text: "End Tour", id: "finish", type: "secondary" }]
     },
@@ -237,7 +225,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" role="presentation" data-t="svg" data-t-ui="icon-devices" viewBox="0 0 24 24" height="29px" width="29px" class="" style="display: inline-block;"><g data-t="icon-g-wrapper" transform="scale(1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 4.25H6.948C6.04952 4.24997 5.3003 4.24995 4.70552 4.32991C4.07773 4.41432 3.51093 4.59999 3.05546 5.05546C2.59999 5.51093 2.41432 6.07773 2.32991 6.70552C2.24994 7.3003 2.24997 8.04952 2.25 8.948L2.25 9V16.25H1.33333C0.735025 16.25 0.25 16.735 0.25 17.3333C0.25 19.2203 1.77969 20.75 3.66667 20.75H18.8391L18.948 20.75H18.948L19 20.75L19.052 20.75H19.052H19.0521C19.9505 20.75 20.6997 20.7501 21.2945 20.6701C21.9223 20.5857 22.4891 20.4 22.9445 19.9445C23.4 19.4891 23.5857 18.9223 23.6701 18.2945C23.7501 17.6997 23.75 16.9505 23.75 16.0521V16.052V16.052L23.75 16V12L23.75 11.948V11.948V11.9479C23.75 11.0495 23.7501 10.3003 23.6701 9.70552C23.5857 9.07773 23.4 8.51093 22.9445 8.05546C22.6017 7.71257 22.1957 7.52259 21.7481 7.4136C21.7457 7.20676 21.7406 7.02081 21.7292 6.85464C21.7076 6.53754 21.661 6.23801 21.5407 5.94762C21.2616 5.27379 20.7262 4.73844 20.0524 4.45933C19.762 4.33905 19.4625 4.29241 19.1454 4.27077C18.8408 4.24999 18.4697 4.24999 18.0253 4.25H18.0252H18H7ZM3.66667 19.25H14.5817C14.4506 18.9546 14.3755 18.6334 14.3299 18.2945C14.3072 18.1254 14.2909 17.9439 14.2793 17.75H3H1.79542C1.98566 18.6082 2.75121 19.25 3.66667 19.25ZM14.25 16.052L14.25 16.25H3.75V9C3.75 8.03599 3.75159 7.38843 3.81654 6.90539C3.87858 6.44393 3.9858 6.24643 4.11612 6.11612C4.24643 5.9858 4.44393 5.87858 4.90539 5.81654C5.38843 5.75159 6.03599 5.75 7 5.75H18C18.4762 5.75 18.7958 5.75041 19.0433 5.76729C19.284 5.78372 19.4012 5.81319 19.4784 5.84515C19.7846 5.97202 20.028 6.21536 20.1549 6.52165C20.1868 6.5988 20.2163 6.71602 20.2327 6.95674C20.2388 7.0466 20.2428 7.14597 20.2454 7.25889C19.8826 7.24997 19.4846 7.24998 19.052 7.25L19 7.25L18.948 7.25C18.0495 7.24997 17.3003 7.24994 16.7055 7.32991C16.0777 7.41432 15.5109 7.59999 15.0555 8.05546C14.6 8.51093 14.4143 9.07773 14.3299 9.70552C14.2499 10.3003 14.25 11.0495 14.25 11.948L14.25 12V16L14.25 16.052ZM21.0946 19.1835C20.6116 19.2484 19.964 19.25 19 19.25C18.036 19.25 17.3884 19.2484 16.9054 19.1835C16.4439 19.1214 16.2464 19.0142 16.1161 18.8839C15.9858 18.7536 15.8786 18.5561 15.8165 18.0946C15.7516 17.6116 15.75 16.964 15.75 16V12C15.75 11.036 15.7516 10.3884 15.8165 9.90539C15.8786 9.44393 15.9858 9.24643 16.1161 9.11612C16.2464 8.9858 16.4439 8.87858 16.9054 8.81654C17.3884 8.75159 18.036 8.75 19 8.75C19.964 8.75 20.6116 8.75159 21.0946 8.81654C21.5561 8.87858 21.7536 8.9858 21.8839 9.11612C22.0142 9.24643 22.1214 9.44393 22.1835 9.90539C22.2484 10.3884 22.25 11.036 22.25 12V16C22.25 16.964 22.2484 17.6116 22.1835 18.0946C22.1214 18.5561 22.0142 18.7536 21.8839 18.8839C21.7536 19.0142 21.5561 19.1214 21.0946 19.1835ZM19 12C19.5523 12 20 11.5523 20 11C20 10.4477 19.5523 10 19 10C18.4477 10 18 10.4477 18 11C18 11.5523 18.4477 12 19 12Z" fill="var(--color-theme-icon)"></path></g></svg>
           </div>
           Match the webpage view for all participants. Click this icon to select a common screen resolution (desktop, tablet, mobile) for the session.`,
-        targetSelector: "#webfuse-screenshare-toggle", // Placeholder - REPLACE THIS
+        targetSelector: "#webfuse-screenshare-toggle", 
         tooltipPosition: "bottom-left",
         buttons: [{ text: "Next", id: "next", type: "primary" }, { text: "End Tour", id: "finish", type: "secondary" }]
     },
